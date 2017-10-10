@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Songs from '../components/Songs';
+import Albums from '../components/AllAlbums';
+import Artist from '../components/AllArtists';
+
+
 
 
 export default class SingleArtist extends Component {
     constructor(props)  {
       super(props);
         this.state = {
-            artist: {},
+            selectedArtist: {},
             artistAlbums: [],
             artistSongs: []
       };
@@ -15,27 +20,32 @@ export default class SingleArtist extends Component {
       axios.get(`/api/artists/${this.props.match.params.artistId}`)
         .then(res => res.data)
         .then(artist => {
-          this.setState({selectedArtist : artist })
-        });
-        axios.get(`/api/artists/${this.props.match.params.artistId}/albums`)
+          this.setState({selectedArtist: artist })
+      });
+      axios.get(`/api/artists/${this.props.match.params.artistId}/albums`)
         .then(res => res.data)
         .then(albums => {
-          this.setState({artistAlbums : albums })
-        });
-        axios.get(`/api/artists/${this.props.match.params.artistId}/songs`)
+          this.setState({artistAlbums: albums })
+      });
+      axios.get(`/api/artists/${this.props.match.params.artistId}/songs`)
         .then(res => res.data)
         .then(songs => {
-          this.setState({artistSongs : songs })
-        });
+          this.setState({artistSongs: songs })
+      });
     }
     render () {
-     console.log("sdfsdf",this.state)
   
       return (
         <div>
-        <h3>{this.state.artist}</h3>
-        <h4>{this.state.artistAlbums}</h4>
-        <h4>{this.state.artistSongs}</h4>
+          <div>
+              <h3>{this.state.selectedArtist.name}</h3>
+          </div>
+          <div>
+              <Albums albums={this.state.artistAlbums}/>
+          </div>
+          <div>
+            <Songs songs={this.state.artistSongs}/>
+          </div>
       </div>
       );
     }

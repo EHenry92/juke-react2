@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AllAlbums from './AllAlbums';
+import StatefulAlbums from './StatefulAlbums';
 import AllArtists from './AllArtists';
 import SingleAlbum from './SingleAlbum';
 import Sidebar from './Sidebar';
@@ -23,8 +23,8 @@ export default class Main extends Component {
               <Sidebar deselectAlbum={this.deselectAlbum} />
             </div>
             <div className="col-xs-10">
-                <Route exact path="/" component = {AllAlbums}/>
-                <Route exact path="/albums" component = {AllAlbums}/>
+                <Route exact path="/" component = {StatefulAlbums}/>
+                <Route exact path="/albums" component = {StatefulAlbums}/>
                 <Route path="/albums/:albumId" component = {SingleAlbum}/>
                 <Route exact path="/artists" component = {AllArtists}/>
                 <Route path="/artists/:artistId" component = {SingleArtist}/>
