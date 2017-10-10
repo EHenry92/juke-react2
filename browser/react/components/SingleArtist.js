@@ -3,6 +3,7 @@ import axios from 'axios';
 import Songs from '../components/Songs';
 import Albums from '../components/AllAlbums';
 import Artist from '../components/AllArtists';
+import {Link, HashRouter, Route} from 'react-router-dom';
 
 
 
@@ -34,20 +35,23 @@ export default class SingleArtist extends Component {
       });
     }
     render () {
-  
-      return (
-        <div>
-          <div>
-              <h3>{this.state.selectedArtist.name}</h3>
-          </div>
-          <div>
-              <Albums albums={this.state.artistAlbums}/>
-          </div>
-          <div>
-            <Songs songs={this.state.artistSongs}/>
-          </div>
-      </div>
-      );
+        const artist = this.state.selectedArtist; // or however you've named it
+          return (
+    
+            <div>
+              <h3>{ artist.name }</h3>
+              <ul className="nav nav-tabs">
+                <li><Link to={`/artists/${this.props.match.params.artistId}/albums`}>ALBUMS</Link></li>
+                <li><Link to={`/artists/${this.props.match.params.artistId}/songs`}>SONGS</Link></li>
+              </ul>
+
+              <Route path= "/artists/:artistId/albums" render={() => <Albums albums={this.state.artistAlbums} />} />
+
+              <Route path= "/artists/:artistId/songs" render={() => <Songs songs={this.state.artistSongs} />} />
+              
+            </div>
+           
+        );
     }
   }
   
